@@ -65,7 +65,7 @@ y_train = []
 y_test = []
 xtotal = []
 ytotal = []
-slice_train = int(120000/len(txt_name_list))  ###Setting value to be 80000 for the final dataset
+slice_train = int(120000/len(txt_name_list))  ###Setting value to be 120000 for the final dataset
 i = 0
 seed = np.random.randint(1, 10e6)
 
@@ -159,7 +159,7 @@ def image():
 
 @app.route('/guess/',methods=['GET','POST'])
 def guess():
-	num = randint(1, 1000)    # Pick a random number between 1 and 1000.
+	num = randint(1, 1000)    # Pick a random number between 1 and 1001.
 	print("number= ",num)
 
 	##Visualize a quickdraw file

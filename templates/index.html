@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AI Experiments</title>
+      <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+</head>
+
+<body style="min-height: 100%; margin-top: 4%;" background="/static/autodraw.PNG" >
+ 
+		<h1>EasyDraw</h1>
+        <a href="{{ url_for('digit') }}" id="digit" class="myButton a1"><span style=" font-weight: 400; font-family: 'Open Sans', Helvetica; font-size:20pt;	"> Digit </span></a>			
+        <a href="{{ url_for('alpha') }}" id="alpha" class="myButton a2"><span style=" font-weight: 400; font-family: 'Open Sans', Helvetica; font-size:20pt;	"> Alphabet </span></a>			
+        <a href="{{ url_for('image') }}" id="image" class="myButton a3"><span style=" font-weight: 400; font-family: 'Open Sans', Helvetica; font-size:20pt;	"> Image </span></a>			
+        <a href="{{ url_for('guess') }}" id="guess" class="myButton a4"><span style=" font-weight: 400; font-family: 'Open Sans', Helvetica; font-size:20pt;	"> Guess it! </span></a>			
+
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="{{ url_for('static',filename='index.js') }}"></script>
+
+	    <script type="text/javascript">
+	   
+	   		$(".a1").click(function(){
+	   			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+                   console.log("aaaaaa");
+	   			$.ajax({
+	   				type: "POST",
+	   				url: $SCRIPT_ROOT + "/digit/",	   				
+	   				success: function(data){
+                        
+                        
+	   				}
+	   			});
+	   		});
+
+             $(".a2").click(function(){
+	   			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	   		
+	   			$.ajax({
+	   				type: "POST",
+	   				url: $SCRIPT_ROOT + "/alpha/",	   				
+	   				success: function(data){
+	   				}
+	   			});
+	   		});
+
+            $(".a3").click(function(){
+	   			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	   			$.ajax({
+	   				type: "POST",
+	   				url: $SCRIPT_ROOT + "/image/",	   				
+	   				success: function(data){
+	   				}
+	   			});
+	   		});
+
+            $(".a4").click(function(){
+	   			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	   			$.ajax({
+	   				type: "POST",
+	   				url: $SCRIPT_ROOT + "/guess/",	   				
+	   				success: function(data){
+	   				}
+	   			});
+	   		});
+
+	   
+	   </script>
+</body>
+</html>

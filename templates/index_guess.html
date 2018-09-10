@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Guess the Image</title>
+
+      <link rel="stylesheet" href="{{ url_for('static',filename='style_guess.css') }}">
+
+</head>
+
+<body>
+		<h1>Guess the Image</h1>
+
+		<div id="debug" style="margin:65px; margin-top:100px; margin-left: 625px;"" >
+		<img src="{{ url_for('static', filename = 'imageToGuess.png') }}" id="img" alt="hehe!" height="250" width="250" 
+			 style="border:8px solid; float: left; border-radius: 5px; cursor: crosshair;"/>
+		<br>
+
+		<form action = "http://localhost:5000/guessResult" method = "GET">
+			<input type="text"name="a" id="word1" style="float: left; margin: 70px; margin-top:25px; margin-left:6px; font-size:15pt;">
+			<input type="hidden" name="b" value="{{num }}" />
+
+			<div style="margin-left:55px; margin-top:320px; float:left; position:absolute;">
+				<a href="{{ url_for('home') }}" id="home" class="myButton home"><span style=" font-weight: 400; font-family: 'Open Sans', Helvetica;	"> Home </span></a>
+				<button id="guess" name="c" class="myButton"><span style=" font-weight: 400; font-family: 'Open Sans', Helvetica;	"> Guess it! </span></button>
+			</div>
+
+		</form>	
+
+		</div>
+
+		<div >
+			<h1 id="result" style="margin-right:20px; margin-top:400px;float:left;"><span> </span></h1>
+		</div>
+
+		
+  		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+       
+	    <script src="{{ url_for('static',filename='index_guess.js') }}"></script>
+	    <script type="text/javascript">
+	   
+
+	   		$(".myButton").click(function(){
+				
+	   			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+				var num1 =  {{ num }};
+				var text =  document.getElementById("word1").value;
+				var param = num1 + ',' + text
+				
+	   			$.ajax({
+	   				type: "POST",
+					   url: $SCRIPT_ROOT + "/guessResult/",
+					   data: param ,
+	   				success: function(data){
+						window.location.href = "http://localhost:5000/guessResult/";
+	   				// console.log(data);
+	   				// if($('#word').text == arr[data]	 )  				
+	   				// 	$('#result').text(' You are correct! The word is '+ arr[data]);
+	   				// else
+    	   			// 	$('#result').text(' Better luck next time. The word is '+ arr[data]);
+	   				 }
+	   			});
+			   });
+			   
+
+			    $(".home").click(function(){
+	   			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	   		
+	   			$.ajax({
+	   				type: "POST",
+	   				url: $SCRIPT_ROOT + "/home/",	   				
+	   				success: function(data){
+	   				}
+	   			});
+	   		}); 
+	   
+	   
+	   </script>
+</body>
+</html>

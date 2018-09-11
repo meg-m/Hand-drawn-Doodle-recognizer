@@ -8,8 +8,6 @@ import pickle
 import re	#for regular expressions, saves time dealing with string data
 import sys 	#system level operations (like loading files)
 
-
-
 from flask import Flask, render_template,request, jsonify
 from keras.models import model_from_yaml
 from numpy import array
@@ -18,7 +16,6 @@ from PIL import Image
 from random import *
 from scipy.misc import imsave, imread, imresize	#scientific computing library for saving/reading & resizing images
 from sklearn.model_selection import train_test_split
-
 
 #initalize our flask app
 app = Flask(__name__)
@@ -91,17 +88,10 @@ for txt_name in txt_name_list:
 x_train, x_test, y_train, y_test = train_test_split(xtotal, ytotal, test_size=0.2, random_state=42) 
 
 
-
-
-
 def load_model(bin_dir):
     ''' Load model from .yaml and the weights from .h5
-
-        Arguments:
-            bin_dir: The directory of the bin (normally bin/)
-
-        Returns:
-            Loaded model from file
+        Arguments: bin_dir: The directory of the bin (normally bin/)
+        Returns: Loaded model from file
     '''
 
     # load YAML and create model
@@ -114,27 +104,22 @@ def load_model(bin_dir):
     model.load_weights('%s/model_alphabet.h5' % bin_dir)
     return model
 
-
-
+## TODO- Merge below 3 methods to 1
 #decoding an image from base64 into raw representation
 def convertImage(imgData1):
     imgstr = re.search(b'base64,(.*)',imgData1).group(1)
     with open('output_image.png','wb') as output:
         output.write(base64.b64decode(imgstr))
-      #output.write(imgstr.decode('base64'))
-
 
 def convertDigitImage(imgData1):
     imgstr = re.search(b'base64,(.*)',imgData1).group(1)
     with open('output_digit.png','wb') as output:
         output.write(base64.b64decode(imgstr))
-      #output.write(imgstr.decode('base64'))
 
 def convertAlphaImage(imgData):
     imgstr = re.search(b'base64,(.*)', imgData).group(1)
     with open('output_alphabet.png','wb') as output:
         output.write(base64.decodebytes(imgstr))
-
 
 @app.route('/home/')
 def home():
@@ -160,42 +145,24 @@ def image():
 @app.route('/guess/',methods=['GET','POST'])
 def guess():
 	num = randint(1, 1000)    # Pick a random number between 1 and 1001.
-	print("number= ",num)
-
 	##Visualize a quickdraw file
 	print("y_train=",y_train[num])
 	imgstr = x_train[num].reshape(28,28)
 	imgstr = 1 - imgstr
 	img = Image.fromarray(imgstr*255)
 	bw_img = img.convert('RGB')
-	bw_img.save("C:/Users/maneckm/Documents/learning/AI/EasyDraw/static/imageToGuess.png")
+	bw_img.save("/static/imageToGuess.png") #or- absolute path to static folder
 	
-	#initModel()
 	#render out pre-built HTML file right on the index page
 	return  render_template("index_guess.html", num=num)
 
 
 @app.route('/guessResult/',methods=['GET','POST'])
 def guessResult():
-	print("before 1")
-	
+
 	inputText = request.args.get('a')
 	num = request.args.get('b')
-	
-	# st = str(request.get_data())[2:-1]
-	
-	# a = st.split(',')
-	# print("after a= ",a)
 	arr = ['apple','bat','cloud','crown','face','flower', 'hand', 'house','icecream','moon','star','sun','tree','tshirt','umbrella']
-	# if(len(a) > 1):
-	# 	print("greater than 1")
-	# 	num = a[0]
-	# 	inputText = a[1]
-	# else:
-	# 	print("less than 1")
-	# 	num = 0
-	# 	inputText = ""
-	print("num = ",num)
 	
 	word = arr[y_train[int(num)]]
 	print("word = ",word)	
@@ -205,19 +172,9 @@ def guessResult():
 		return render_template("guess-result.html", correct= 0, word= word)
 
 
-
 @app.route('/show/',methods=['GET','POST'])
 def show():
-#	script_dir = os.path.dirname(__file__)
-#	print(script)
-	
-	# with open('image.png','wb') as output:
-	#  	output.write(img)
-	# plt.imshow(imgstr)
-	#plt.show()
 	return str(y_train[num])
-
-
 
 
 @app.route('/predict-image/',methods=['GET','POST'])
@@ -241,7 +198,6 @@ def predictImage():
 		response = np.array_str(np.argmax(out,axis=1))
 		return response	
 	
-
 
 @app.route('/predict-alpha/', methods=['GET','POST'])
 def predictAlpha():

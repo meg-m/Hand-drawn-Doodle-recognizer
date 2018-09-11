@@ -7,7 +7,10 @@ This project is a web application which basically consosts of 4 tabs for-
     Available here: https://www.nist.gov/itl/iad/image-group/emnist-dataset
 3)  Doodle Recognition:
     It is basically inspired from Quick, Draw! app: https://quickdraw.withgoogle.com/
-    Dataset is open-sourced and different formats can be found here: https://github.com/googlecreativelab/quickdraw-dataset
+    
+    ![tree.gif](https://github.com/meg-m/Hand-drawn-Doodle-recognizer/blob/master/templates/tree.gif)
+    
+    QuickDraw Dataset is open-sourced and different formats can be found here: https://github.com/googlecreativelab/quickdraw-dataset
     Numpy bitmap files(.npy) are used for this project:
     https://console.cloud.google.com/storage/browser/quickdraw_dataset/full/numpy_bitmap
 4)  Guess the sketch-

@@ -25,14 +25,18 @@ Once dependencies are installed, just run this to see it in your browser.
 
 To train respective models-
 ```python train_digit.py```
+
 ```python train_alphabet.py```
+
 ```python train_image.py``` 
+
 ```python train_guess.py```
 
-To run the app
+To run the app: 
 ```python app.py```
 
 
 ## Credits
 https://github.com/llSourcell/how_to_deploy_a_keras_model_to_production 
+
 https://github.com/googlecreativelab/quickdraw-dataset

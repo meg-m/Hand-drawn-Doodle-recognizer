@@ -35,3 +35,4 @@ To run the app
 
 ## Credits
 https://github.com/llSourcell/how_to_deploy_a_keras_model_to_production 
+https://github.com/googlecreativelab/quickdraw-dataset

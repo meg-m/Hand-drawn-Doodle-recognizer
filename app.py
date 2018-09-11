@@ -42,13 +42,13 @@ from load_digit import *
 model_digit, graph_digit = init()
 
 #used for alphabet tab
-model_alphabet = load_model('bin')
-mapping = pickle.load(open('bin/mapping.p', 'rb'))
+sys.path.append(os.path.abspath("./model_alphabet"))
+model_graph, graph_alphabet = init()
 
 
 #path to data folder where all the npy files are present
 # this is for guess image tab
-mypath = "/data/"
+mypath = "data/"
 txt_name_list = []
 for (dirpath, dirnames, filenames) in walk(mypath):
 	print(filenames)
@@ -151,7 +151,7 @@ def guess():
 	imgstr = 1 - imgstr
 	img = Image.fromarray(imgstr*255)
 	bw_img = img.convert('RGB')
-	bw_img.save("/static/imageToGuess.png") #or- absolute path to static folder
+	bw_img.save("static/imageToGuess.png") #or- absolute path to static folder
 	
 	#render out pre-built HTML file right on the index page
 	return  render_template("index_guess.html", num=num)
@@ -267,6 +267,9 @@ def predictGuess():
 
 if __name__ == "__main__":
 	
+	model_alphabet = load_model('bin')
+	mapping = pickle.load(open('bin/mapping.p', 'rb'))
+
 	port = int(os.environ.get('PORT', 5000))
 	#run the app locally on the givn port
 	app.run(host='0.0.0.0', port=port)

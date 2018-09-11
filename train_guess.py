@@ -24,7 +24,7 @@ epochs = 20
 img_rows, img_cols = 28, 28
 
 #Path where all the npy quickdraw files are present
-mypath = "/data/"
+mypath = "data/"
 txt_name_list = []
 for (dirpath, dirnames, filenames) in walk(mypath):
     print(filenames)

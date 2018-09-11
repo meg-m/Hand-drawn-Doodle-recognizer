@@ -102,7 +102,7 @@ def train(model, training_data, callback=True, batch_size=64, epochs=1):
     y_train = np_utils.to_categorical(y_train, nb_classes)
     y_test = np_utils.to_categorical(y_test, nb_classes)
 
-    model.fit(x_train[:100], y_train[:100],
+    model.fit(x_train, y_train,
               batch_size=batch_size,
               epochs=epochs,
               validation_data=(x_test, y_test))
@@ -119,7 +119,7 @@ def train(model, training_data, callback=True, batch_size=64, epochs=1):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(usage='A training program for classifying the EMNIST dataset')
-    parser.add_argument('-f', '--file', type=str,  default='matlab/emnist-letters.mat' help='Path .mat file data')
+    parser.add_argument('-f', '--file', type=str,  default='matlab/emnist-letters.mat', help='Path .mat file data')
     parser.add_argument('--width', type=int, default=28, help='Width of the images')
     parser.add_argument('--height', type=int, default=28, help='Height of the images')
     parser.add_argument('--max', type=int, default=None, help='Max amount of data to use')
